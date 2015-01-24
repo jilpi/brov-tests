@@ -40,7 +40,7 @@ Project specific packages and gems
 1. Execjs and nodejs
 
     ```shell
-    gem install execjs
+    sudo gem install execjs
     sudo apt-get install nodejs
     ```
 

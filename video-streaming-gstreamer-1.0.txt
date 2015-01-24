@@ -1,0 +1,79 @@
+=====================================
+==  Basic streaming with GSTreamer ==
+=====================================
+
+1) Install Raspbian, update to latest version
+
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo rpi-update
+
+
+2) Add repo for GSTreamer1.0
+
+$ sudo nano /etc/apt/sources.list
+
+add line:
+  deb http://vontaene.de/raspbian-updates/ . main
+
+Add SecureAPT GPG key
+
+$ gpg -a --export 0C667A3E
+$ gpg -a --export 0C667A3E | sudo apt-key add -
+
+(repeat if error occurs after 1st gpg command line)
+
+
+3) Install GSTreamer dev components + autogen / autoconf / libtool
+# sudo apt-get install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-omx gstreamer1.0-tools autogen autoconf libltdl-dev
+
+To verify, the following command line should generate below output:
+$ gst-inspect-1.0 
+omx:  omxhdmiaudiosink: OpenMAX HDMI Audio Sink
+omx:  omxanalogaudiosink: OpenMAX Analog Audio Sink
+omx:  omxh264enc: OpenMAX H.264 Video Encoder
+omx:  omxvc1dec: OpenMAX WMV Video Decoder
+omx:  omxmjpegdec: OpenMAX MJPEG Video Decoder
+omx:  omxvp8dec: OpenMAX VP8 Video Decoder
+omx:  omxtheoradec: OpenMAX Theora Video Decoder
+omx:  omxh264dec: OpenMAX H.264 Video Decoder
+omx:  omxh263dec: OpenMAX H.263 Video Decoder
+omx:  omxmpeg4videodec: OpenMAX MPEG4 Video Decoder
+omx:  omxmpeg2videodec: OpenMAX MPEG2 Video Decoder
+[...]
+
+
+4) Install GST wrapper for raspivid/raspistill
+
+In a temporary directory:
+$ git clone git://github.com/thaytan/gst-rpicamsrc.git
+$ cd cd gst-rpicamsrc/
+$ ./autogen.sh --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/
+$ make
+$ sudo make install
+
+
+5) Install GST plugins
+
+$ sudo apt-get install gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly
+
+
+6) Stream
+
+replace RASPBERRY_IP / CLIENT_IP with appropriate values
+
+UPD:
+On the 'server' (sending the video out):
+$ raspivid -t 999999 -w 1080 -h 720 -fps 30 -hf -b 20000000 -o - | gst-launch-1.0 -e -vvvv fdsrc ! h264parse ! rtph264pay pt=96 config-interval=5 ! udpsink host=CLIENT_IP port=5000
+
+On the 'client' (receiving the stream and displaying the video):
+$ gst-launch-1.0 -e -v udpsrc port=5000 ! application/x-rtp, payload=96 ! rtpjitterbuffer ! avdec_h264 ! fpsdisplaysink sync=false text-overlay=false
+
+
+TCP:
+Server:
+$ gst-launch-1.0 rpicamsrc bitrate=20000000 preview=false ! video/x-h264, width=640, height=480, framerate=30/1 ! h264parse ! rtph264pay ! gdppay ! tcpserversink port=5000 host=RASPBERRY_IP
+
+Client:
+$ gst-launch-1.0 tcpclientsrc host=RASPBERRY_IP port=5000 ! gdpdepay ! rtph264depay ! avdec_h264 ! autovideosink sync=flase                                                              
+

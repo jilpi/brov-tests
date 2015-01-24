@@ -51,7 +51,7 @@ Project specific packages and gems
     gem install gstreamer
     ```
     
-*THERE IS A BUG IN GSTREAMER GEM 2.2.0*  
+**THERE IS A BUG IN GSTREAMER GEM 2.2.0**  
 [FIX HERE][gstreamer fix]
 
 [gstreamer fix]: https://github.com/ruby-gnome2/ruby-gnome2/commit/29dd9ccdf06b2fe7d9f5cf6ace886bb89adcebf2 "Gstreamer 2.2.0 fix"

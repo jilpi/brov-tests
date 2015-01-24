@@ -4,35 +4,35 @@ Environment setup
 Update Raspbian
 ---------------
 
-    ```shell
-    sudo apt-get update
-    sudo apt-get upgrade
-    ```
+```shell
+sudo apt-get update
+sudo apt-get upgrade
+```
     
 OPTIONAL: Free up some space  
 (remove scratch, wolfram (+ mathematica), ruby1.9.1 & ri1.9.1 (+ sonicpi) )  
 Why? Installation on Pi may be slow and require a lot of disk space, as ruby 
 may need to be compiled from source.
 
-    ```shell
-    $ sudo apt-get remove scratch wolfram-engine ruby1.9.1 ri1.9.1
-    ```
+```shell
+sudo apt-get remove scratch wolfram-engine ruby1.9.1 ri1.9.1
+```
     
 Install RVM + rails + ruby
 --------------------------
 
 Note: as normal user, no need to be root
 
-    ```shell
-    $ gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
-    $ \curl -L https://get.rvm.io | bash -s stable --rails
-    ```
+```shell
+gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
+\curl -L https://get.rvm.io | bash -s stable --rails
+```
 
 To use RVM in current shell:
 
-    ```shell
-    $ source ~/.rvm/scripts/rvm
-    ```
+```shell
+source ~/.rvm/scripts/rvm
+```
 
 Project specific packages and gems
 ----------------------------------
@@ -47,8 +47,8 @@ Project specific packages and gems
 2. GSTreamer & gstreamer bindings
 
     ```shell
-        $ gem install glib2
-        $ gem install gstreamer
+    gem install glib2
+    gem install gstreamer
     ```
     
 *THERE IS A BUG IN GSTREAMER GEM 2.2.0*  

@@ -1,6 +1,13 @@
 Environment setup
 =================
 
+Update RPi's firmware
+---------------------
+
+```shell
+sudo rpi-update
+```
+
 Update Raspbian
 ---------------
 

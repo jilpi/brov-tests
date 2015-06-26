@@ -1,5 +1,16 @@
 #! /bin/bash
 
+echo "Do you wish to update your RPi firmware? (/!\ NOT TESTED YET)"
+select yn in Yes No; do
+  case $yn in
+    Yes )
+      sudo rpi-update
+      ;;
+    No ) break;;
+  esac
+done
+
+
 echo "Do you wish to setup your environment for blue ROV? This will upgrade you distribution, install RVM, ruby 2.2..."
 echo "Note: The script uses 'sudo apt-get update/upgrade'."
 

@@ -1,10 +1,11 @@
 #! /bin/bash
 
-echo "Do you wish to update your RPi firmware? (/!\ NOT TESTED YET)"
+echo "Do you wish to update your RPi firmware?"
 select yn in Yes No; do
   case $yn in
     Yes )
       sudo rpi-update
+      break
       ;;
     No ) break;;
   esac
@@ -43,10 +44,10 @@ rvm install 2.2
 #sudo apt-get update
 
 echo "Install gstreamer1.0, omx and other libraries"
-sudo apt-get install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-0 libgstreamer1.0-0-dbg libgstreamer1.0-dev gstreamer1.0-x gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-base-apps gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-omx gstreamer1.0-libav gstreamer1.0-doc
+sudo apt-get install libgstreamer1.0-0 libgstreamer1.0-0-dbg gstreamer1.0-x gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-base-apps gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-omx gstreamer1.0-libav gstreamer1.0-doc
 
 echo "install other required packages in order to build gst--rpicamsrc"
-sudo apt-get install autoconf automake libtool libraspberrypi-dev
+sudo apt-get install autoconf automake libtool libraspberrypi-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
 
 echo "Install Gstreamer wrapper for raspivid/raspistill"
 cd /tmp

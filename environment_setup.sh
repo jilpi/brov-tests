@@ -5,6 +5,7 @@ select yn in Yes No; do
   case $yn in
     Yes )
       sudo rpi-update
+      break
       ;;
     No ) break;;
   esac

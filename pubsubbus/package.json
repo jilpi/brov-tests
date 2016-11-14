@@ -1,0 +1,33 @@
+{
+  "name": "pubsubbus-rov",
+  "version": "0.1.0",
+  "description": "A module providing an asynchronous, anonymous bus using a pub-sub pattern to the BlueROV",
+  "author": "Jean-Laurent Picard <jean.laurent.picard@gmail.com>",
+
+  "main": "lib/pubsubbus.js",
+  
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nodejitsu/browsenpm.org"
+  },
+  
+  "bugs": {
+    "url": "https://github.com/nodejitsu/browsenpm.org/issues"
+  },
+  
+  "keywords": [
+    "bluerov",
+    "bluerobotics",
+    "pub-sub",
+    "rov"
+  ],
+  
+  "dependencies": {
+    "events": "*"
+  },
+  
+  "preferGlobal": false,
+  "private": false,
+  
+  "license": "GPL-3.0"
+}
